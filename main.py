@@ -38,10 +38,11 @@ def flip_card():
 def know():
     global words
     del words[german]
+    header = ["German", "English"]
     data_items = words.items()
     data_list = list(data_items)
     df = pandas.DataFrame(data_list)
-    df.to_csv("ge-en.csv")
+    df.to_csv("ge-en.csv", header=header, index=False)
     canvas.itemconfig(word, text=f"{german}")
     generate_random_word()
 
@@ -49,7 +50,6 @@ def know():
 def dont_know():
     canvas.itemconfig(word, text=f"{german}")
     unknown_words[german] = english
-    print(unknown_words)
     try:
         with open("unknown_words.txt", mode= "r") as df:
             data = json.load(df)
@@ -66,7 +66,6 @@ def dont_know():
     generate_random_word()
 
 # ---------------------------- UI SETUP ------------------------------- #
-
 window = Tk()
 window.title("Learn German")
 window.configure(padx=50, pady=50, background=BACKGROUND_COLOR)
